@@ -1,5 +1,8 @@
 Sub Cria_Tabuleiro()
 
+    'Dim MatrizTeste(10, 2) As Integer
+    'casas_tabuleiro = Array("C3", "D3", "E3")
+
     Sheets("Corrida_Maluca").Activate
     Range("B:Z").ColumnWidth = 10
     Range("B2:AF17").RowHeight = 50
@@ -12,9 +15,12 @@ Sub Cria_Tabuleiro()
     Dim cellAdjacente As Range
     Dim count_cases As Integer
     
-    
     Set Tabuleiro = Range("B2:AF17")
     count_cases = 1
+    
+    ' Uma coleção é efetivamente uma Coluna Unica "VETOR"
+    Dim cordenadas_mapeadas As New Collection
+   
 
     cor_casas_tabuleiro = 6569237
 
@@ -30,6 +36,7 @@ Sub Cria_Tabuleiro()
                     If cell.Value = "" Then
                         count_cases = count_cases + 1
                         cell.Value = count_cases
+                        cordenadas_mapeadas.Add (cell.Row & ", " & cell.Column)
                     End If
                     
                     If cell.Offset(0, -1).Interior.Color = cor_casas_tabuleiro And cell.Offset(0, -1).Value = "" And cell.Value Then
@@ -41,12 +48,12 @@ Sub Cria_Tabuleiro()
                        j = j - 2
                     End If
                     
-                    ' Otimiza o processo do algoritmo!
+                    'Otimiza o processo do algoritmo!
                     'If IsEmpty(cell.Offset(0, 1).Value) Then
                         'i = i + 1
                         
-                        'If cell.Offset(0, -1).Interior.Color = cor_casas_tabuleiro
-                        'j = j - j + 1
+                        'If cell.Offset(0, -1).Interior.Color = cor_casas_tabuleiro Then
+                            'j = j - j + 1
                     'End If
                     
                 End If
@@ -55,12 +62,6 @@ Sub Cria_Tabuleiro()
         Next j
     Next i
 
-
-    
-    'casas_tabuleiro = Array("C3", "D3", "E3")
-    
-  
-    
     
     'For i = LBound(casas_tabuleiro) To UBound(casas_tabuleiro)
         'Debug.Print Range(casas_tabuleiro(i)).Value
